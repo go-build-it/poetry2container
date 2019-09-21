@@ -14,4 +14,5 @@ Usage
 
 Environment variables:
 * `POETRY_EXPORT_ARGS`: Additional arguments for the `poetry export` command
-* `KANIKO_ARGS`: Additional arguments for kaniko
+* `KANIKO_ARGS`: Additional arguments for kaniko (if using the container)
+* `DOCKER_ARGS`: Additional arguments for docker build (if using the script directly)

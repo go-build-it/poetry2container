@@ -1,5 +1,9 @@
 docker_builder:
+  env:
+    DOCKER_ARGS: -t foo
   docker_script:
     - cd testproj && sh ../poetry2container
+    - docker run foo foo --name=Astra --count=2
   kaniko_script:
     - ./test.sh
+    # TODO: How to test produced image?
