@@ -1,5 +1,6 @@
 #!/busybox/sh
-set -xe
+# This script must run under busybox
+set -e
 
 PROJECT=$PWD
 
