@@ -22,12 +22,12 @@ RUN cp dist/* /tmp
 FROM python:3-slim
 
 COPY --from=builder /tmp /tmp
-RUN pip install --no-cache-dir --disable-pip-version-check -r /tmp/requirements.txt /tmp/*.whl
-
+RUN pip install --no-cache-dir --disable-pip-version-check -r /tmp/requirements.txt
+RUN pip install --no-cache-dir --disable-pip-version-check /tmp/*.whl
 EOF
 
 if [ -e /kaniko/executor ]; then
-    /kaniko/executor --dockerfile /tmp/Dockerfile --context dir://$PROJECT ${KANIKO_ARGS:---no-push}
+    /kaniko/executor --dockerfile /tmp/Dockerfile --context dir://$PROJECT --single-snapshot ${KANIKO_ARGS:---no-push}
 else
     docker build -f /tmp/Dockerfile $DOCKER_ARGS $PROJECT
 fi
