@@ -1,6 +1,9 @@
 #!/busybox/sh
+set -e
 
-PROJECT = $PWD
+PROJECT=$PWD
+
+mkdir -p /tmp
 
 cat > /tmp/Dockerfile <<EOF
 FROM python:3 as builder
@@ -14,11 +17,11 @@ RUN poetry build --format=wheel
 RUN cp *.whl /tmp
 
 # This is the real container
-FROM python:3
+FROM python:3-slim
 
 COPY --from=builder /tmp /tmp
 RUN pip install --no-cache-dir --disable-pip-version-check -r /tmp/requirements.txt /tmp/*.whl
 
 EOF
 
-/kaniko/executor --dockerfile /tmp/Dockerfile --context dir://$PROJECT $KANIKO_ARGS
+/kaniko/executor --dockerfile /tmp/Dockerfile --context dir://$PROJECT ${KANIKO_ARGS:---no-push}
