@@ -6,8 +6,6 @@ authors = ["Jamie Bliss <jamie@ivyleav.es>"]
 
 [tool.poetry.dependencies]
 python = ">=3.7"
-
-[tool.poetry.dev-dependencies]
 click = "^7.0"
 
 [tool.poetry.scripts]
