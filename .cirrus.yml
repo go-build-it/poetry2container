@@ -1,6 +1,3 @@
-test_task:
-  container:
-    dockerfile: Dockerfile
+docker_builder:
   test_script:
-    - cd testproj
-    - poetry2container
+    - ./test.sh
