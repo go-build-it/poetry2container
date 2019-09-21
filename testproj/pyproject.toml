@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "testproj"
+name = "foo"
 version = "0.1.0"
 description = "A test project for poetry2container"
 authors = ["Jamie Bliss <jamie@ivyleav.es>"]
 
 [tool.poetry.dependencies]
-python = "3.7"
+python = ">=3.7"
 
 [tool.poetry.dev-dependencies]
 click = "^7.0"
