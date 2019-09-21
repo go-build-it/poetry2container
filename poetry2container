@@ -1,0 +1,24 @@
+#!/busybox/sh
+
+PROJECT = $PWD
+
+cat > /tmp/Dockerfile <<EOF
+FROM python:3 as builder
+COPY . .
+# Install poetry
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --preview
+# Export locks
+RUN poetry export -o /tmp/requirements.txt -f requirements.txt $POETRY_EXPORT_ARGS
+# Build wheels
+RUN poetry build --format=wheel
+RUN cp *.whl /tmp
+
+# This is the real container
+FROM python:3
+
+COPY --from=builder /tmp /tmp
+RUN pip install --no-cache-dir --disable-pip-version-check -r /tmp/requirements.txt /tmp/*.whl
+
+EOF
+
+/kaniko/executor --dockerfile /tmp/Dockerfile --context dir://$PROJECT $KANIKO_ARGS
