@@ -1,0 +1,6 @@
+test_task:
+  container:
+    dockerfile: Dockerfile
+  test_script:
+    - cd testproj
+    - poetry2container
